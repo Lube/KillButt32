@@ -266,11 +266,13 @@ class character:
         drawtile(self.animations[FACINGS[self.facing]][self.state][0], self.pos[0], self.pos[1])
         
     def update(self, command, collisionables):
-        self.facing = command
         if command == (0,0) or self.willCollision(collisionables):
+            if command != (0,0):
+                self.facing = command
             self.moving = False
             self.state = 3
         else:
+            self.facing = command
             xVec, yVec = command
             self.moving = True
             self.state = (self.state + 1) % len(self.animations[FACINGS[self.facing]])
